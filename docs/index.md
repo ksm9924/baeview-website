@@ -10,7 +10,7 @@ description: 달리는 하루, 더 선명하게.
 
 복잡한 배달 업무는 가볍게, 눈앞의 길에는 더 집중할 수 있도록. **배뷰(BAEVIEW)**는 라이더의 경로 안내, 배달 업무 흐름과 운행 기록을 돕는 Android 기반 독립 서비스입니다.
 
-[배뷰 공식 홈페이지 둘러보기](https://zjzidagcbhaddhjenbtd.supabase.co/functions/v1/baeview-site-ef01/) · [Google Play 베타 테스트 참여](https://play.google.com/apps/internaltest/4699815515551787455)
+[배뷰 공식 홈페이지 둘러보기](/home.html) · [Google Play 베타 테스트 참여](https://play.google.com/apps/internaltest/4699815515551787455)
 
 ---
 
@@ -30,7 +30,7 @@ description: 달리는 하루, 더 선명하게.
 
 현재 Android용 Google Play 내부 테스트를 단계적으로 운영 중입니다. 참여 가능한 계정에서만 설치할 수 있습니다.
 
-[앱 다운로드 안내](https://zjzidagcbhaddhjenbtd.supabase.co/functions/v1/baeview-site-ef01/download/) · [베타 참여 안내](https://zjzidagcbhaddhjenbtd.supabase.co/functions/v1/baeview-site-ef01/beta/)
+[앱 다운로드 안내](/download.html) · [베타 참여 안내](/beta.html)
 
 ---
 
