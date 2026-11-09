@@ -1,4 +1,5 @@
 ---
+published: false
 layout: default
 title: 배뷰 BAEVIEW
 description: 달리는 하루, 더 선명하게.
