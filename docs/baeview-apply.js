@@ -126,4 +126,7 @@
       submit.textContent = '테스터 신청서 보내기 →';
     }
   });
+
+  // Enable only after the handler is attached; script failures must not submit a GET query.
+  submit.disabled = false;
 })();
