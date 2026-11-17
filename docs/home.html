@@ -39,10 +39,10 @@ h1,h2,h3,p,figure,dl,dd{margin:0}h1,h2,h3{line-height:1.3;text-wrap:balance}a{co
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.button:hover,.feature-card:hover{transform:none}}
 
 
-/* Tester entry points; existing hero controls remain intact. */
-.tester-actions{display:grid;grid-template-columns:1fr 1fr;max-width:414px;gap:12px;margin-top:12px}.tester-actions .button{min-width:0;padding:13px 18px;gap:10px;font-size:14px}.button-tester{color:#a6f8d8;background:#69f0ca0a;border-color:#4da88c}.button-tester:hover{background:#69f0ca16;border-color:#8af7d1}.button-kakao{background:#fee500;border-color:#fee500;color:#302626}.button-kakao:hover{background:#ffed52;border-color:#ffed52}.button-kakao:focus-visible{outline-color:#ffe977}.tester-actions .button span{flex:none}
-@media(min-width:601px) and (max-width:900px){.tester-actions{margin-inline:auto}}
-@media(max-width:600px){.tester-actions{width:100%;max-width:414px;gap:9px;margin-top:9px}.tester-actions .button{font-size:11px;min-height:47px;padding:11px 10px;gap:7px}}
+/* Four hero actions share the same two-column geometry. */
+.hero-copy>.hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-width:414px;gap:12px}.hero-copy>.hero-actions>.button{box-sizing:border-box;width:100%;height:56px;min-height:56px;margin:0;padding:0 18px;gap:10px;font-size:14px;justify-content:center}.tester-actions{margin-top:12px}.button-tester{color:#a6f8d8;background:#69f0ca0a;border-color:#4da88c}.button-tester:hover{background:#69f0ca16;border-color:#8af7d1}.button-kakao{background:#fee500;border-color:#fee500;color:#302626}.button-kakao:hover{background:#ffed52;border-color:#ffed52}.button-kakao:focus-visible{outline-color:#ffe977}.tester-actions .button span{flex:none}
+@media(min-width:601px) and (max-width:900px){.hero-copy>.hero-actions{margin-inline:auto}}
+@media(max-width:600px){.hero-copy>.hero-actions{gap:9px}.hero-copy>.hero-actions>.button{font-size:11px;height:48px;min-height:48px;padding:0 8px;gap:6px}.tester-actions{margin-top:9px}}
 </style>
   
   <title>배뷰 | 배달의 모든 순간, 더 선명하게</title>
