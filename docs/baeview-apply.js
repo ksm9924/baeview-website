@@ -8,11 +8,11 @@
   if (!form || !status || !submit || !success) return;
 
   let sending = false;
-  const setStatus = (state, message) => {
+  const setStatus = (state, message, moveFocus = true) => {
     status.dataset.state = state;
     status.textContent = message;
     status.hidden = false;
-    status.focus();
+    if (moveFocus) status.focus();
   };
 
   const normalize = value => String(value || '').trim();
@@ -101,25 +101,31 @@
     submit.textContent = '신청서를 보내는 중…';
     status.hidden = true;
     const controller = new AbortController();
-    const timer = window.setTimeout(() => controller.abort(), config.timeoutMs || 20000);
+    const timer = window.setTimeout(() => controller.abort(), config.timeoutMs || 60000);
+    const waitingTimer = window.setTimeout(() => {
+      setStatus('pending', '전송 결과를 확인하고 있습니다. 중복 신청하지 말고 잠시 기다려 주세요.', false);
+    }, 10000);
     try {
       const result = await sendApplication(application, config, controller.signal);
       if (result.state === 'pending') {
-        setStatus('pending', '이메일 수신 연결이 아직 준비되지 않아 접수가 완료되지 않았습니다. 카카오톡 공개채팅방에서 문의해 주세요.');
+        setStatus('pending', '이메일 수신 연결이 아직 준비되지 않았습니다. 신청 내용이 보관되었을 수 있으니, 다시 신청하기 전 공개채팅방에서 문의해 주세요.');
         return;
       }
       form.hidden = true;
       success.hidden = false;
       success.focus();
     } catch (error) {
-      const message = error?.name === 'AbortError'
-        ? '전송 확인 시간이 초과되었습니다. 접수 여부가 확인되지 않았으니 잠시 후 다시 시도하거나 공개채팅방으로 문의해 주세요.'
-        : error?.message === 'TOO_MANY_REQUESTS'
+      const timedOut = controller.signal.aborted || error?.name === 'AbortError';
+      const rateLimited = error?.message === 'TOO_MANY_REQUESTS';
+      const message = timedOut
+        ? '접수 결과 확인이 지연되고 있습니다. 신청서가 이미 전달되었을 수 있으니, 다시 신청하기 전 공개채팅방에서 확인해 주세요. 입력 내용은 유지되어 있습니다.'
+        : rateLimited
           ? '잠시 후 다시 신청해 주세요. 짧은 시간에 여러 번 접수할 수 없습니다.'
-          : '신청서 전송을 확인하지 못했습니다. 입력 내용은 유지되어 있으니 잠시 후 다시 시도하거나 공개채팅방으로 문의해 주세요.';
-      setStatus('error', message);
+          : '신청서 전송 결과를 확인하지 못했습니다. 신청서가 이미 전달되었을 수 있으니, 다시 신청하기 전 공개채팅방에서 확인해 주세요. 입력 내용은 유지되어 있습니다.';
+      setStatus(rateLimited && !timedOut ? 'error' : 'pending', message);
     } finally {
       window.clearTimeout(timer);
+      window.clearTimeout(waitingTimer);
       sending = false;
       submit.disabled = false;
       submit.removeAttribute('aria-busy');
