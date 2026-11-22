@@ -1,0 +1,15 @@
+{
+  "id": "/bp/",
+  "name": "배뷰 파트너",
+  "short_name": "배뷰 파트너",
+  "lang": "ko-KR",
+  "start_url": "/bp/",
+  "scope": "/bp/",
+  "display": "standalone",
+  "background_color": "#0e151d",
+  "theme_color": "#0e151d",
+  "icons": [
+    {"src":"./baeview-partner-install-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./baeview-partner-install-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
+  ]
+}
