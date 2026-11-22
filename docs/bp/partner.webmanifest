@@ -8,6 +8,9 @@
   "display": "standalone",
   "background_color": "#0e151d",
   "theme_color": "#0e151d",
+  "related_applications": [
+    {"platform":"webapp","id":"https://baeview.kr/bp/","url":"https://baeview.kr/bp/partner.webmanifest"}
+  ],
   "icons": [
     {"src":"./baeview-partner-install-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
     {"src":"./baeview-partner-install-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
