@@ -69,27 +69,36 @@ update();
 
 const stage = 'baeviewPartnerBack';
 const history = window.history;
-let activeModal = null;
+const modalStack = [];
 let closingModal = null;
 let restoreTimer;
+
+function ensureModalHistory() {
+  const id = modalStack.at(-1);
+  if (id && history.state?.baeviewModal !== id) {
+    history.pushState({...history.state, baeviewModal:id}, '');
+  }
+}
 
 window.addEventListener('message', event => {
   if (!appFrame || event.source !== appFrame.contentWindow || event.origin !== appOrigin || typeof event.data !== 'string') return;
   const command = /^bp:modal:(open|close):([0-9]{10,22})$/.exec(event.data);
   if (!command) return;
   const [, action, id] = command;
-  if (action === 'open' && !activeModal) {
-    activeModal = id;
+  const position = modalStack.indexOf(id);
+  if (action === 'open') {
+    if (position !== -1) return;
+    modalStack.push(id);
     window.clearTimeout(restoreTimer);
     backMessage.hidden = true;
-    history.pushState({...history.state, baeviewModal:id}, '');
+    ensureModalHistory();
+    return;
   }
-  if (action === 'close' && activeModal === id) {
-    activeModal = null;
-    if (history.state?.baeviewModal === id) {
-      closingModal = id;
-      history.back();
-    }
+  if (position === -1) return;
+  modalStack.splice(position, 1);
+  if (history.state?.baeviewModal === id) {
+    closingModal = id;
+    history.back();
   }
 });
 
@@ -105,14 +114,16 @@ if (runningAsApp()) {
 }
 
 window.addEventListener('popstate', event => {
-  if (activeModal && activeModal !== event.state?.baeviewModal) {
-    const id = activeModal;
-    activeModal = null;
-    appFrame.contentWindow.postMessage(`bp:modal:back:${id}`, appOrigin);
-    return;
-  }
   if (closingModal) {
     closingModal = null;
+    ensureModalHistory();
+    return;
+  }
+  const activeModal = modalStack.at(-1);
+  if (activeModal && activeModal !== event.state?.baeviewModal) {
+    modalStack.pop();
+    appFrame.contentWindow.postMessage(`bp:modal:back:${activeModal}`, appOrigin);
+    ensureModalHistory();
     return;
   }
   if (!activeModal && event.state?.baeviewModal) {
