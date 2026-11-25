@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=contain">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0e151d">
   <meta name="apple-mobile-web-app-title" content="배뷰 파트너">
@@ -11,7 +11,7 @@
   <link rel="manifest" href="./partner.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="./baeview-partner-install-192.png">
   <link rel="apple-touch-icon" href="./baeview-partner-install-192.png">
-  <script src="./install.js?v=r1003" defer></script>
+  <script src="./install.js?v=viewport-20261126" defer></script>
   <style>
     @font-face { font-family: 'Noto Sans KR'; src: url('../baeview-notosanskr.woff') format('woff'); font-display: swap; }
     html { font-family: 'Noto Sans KR', sans-serif; }
@@ -22,6 +22,7 @@
       flex-direction: column;
       height: 100vh;
       height: 100dvh;
+      height: var(--partner-visible-height, 100dvh);
       padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
     iframe { border: 0; display: block; width: 100%; min-height: 0; flex: 1 1 0; }
@@ -57,7 +58,7 @@
   <div id="install-bar" class="install" hidden><button id="install-button" type="button">홈 화면에 앱 설치</button></div>
   <iframe
     id="partner-frame" title="배뷰 파트너 포털 연결"
-    src="https://baeview-partner-pilot-wbznui.flutterflow.app/?release=bp-r1008-two-tabs"
+    src="https://baeview-partner-pilot-wbznui.flutterflow.app/?release=bp-viewport-reconnect-20261126"
     allow="clipboard-write https://baeview-partner-pilot-wbznui.flutterflow.app"
     referrerpolicy="no-referrer"
     sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
