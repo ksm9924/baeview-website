@@ -10,6 +10,41 @@ const standalone = window.matchMedia('(display-mode: standalone)');
 let deferredPrompt = null;
 let installed = false;
 
+// The installed wrapper owns system insets; its cross-origin Flutter frame
+// cannot measure the outer window's visible viewport or safe-area insets.
+function fitPartnerViewport() {
+  const heights = [window.innerHeight, document.documentElement.clientHeight];
+  const visual = window.visualViewport;
+  // Preserve pinch zoom. Reflow only at the normal page scale.
+  if (visual && Math.abs(visual.scale - 1) >= 0.01) return;
+  if (visual) heights.push(visual.height);
+  const available = heights.filter(value => Number.isFinite(value) && value > 0);
+  if (!available.length) return;
+  const height = `${Math.floor(Math.min(...available))}px`;
+  const style = document.documentElement.style;
+  if (style.getPropertyValue('--partner-visible-height') !== height) {
+    style.setProperty('--partner-visible-height', height);
+  }
+}
+
+let partnerViewportFrame = null;
+function queuePartnerViewport() {
+  if (partnerViewportFrame !== null) return;
+  partnerViewportFrame = window.requestAnimationFrame(() => {
+    partnerViewportFrame = null;
+    fitPartnerViewport();
+  });
+}
+
+window.addEventListener('resize', queuePartnerViewport, {passive: true});
+window.addEventListener('orientationchange', queuePartnerViewport, {passive: true});
+window.addEventListener('pageshow', queuePartnerViewport);
+window.visualViewport?.addEventListener('resize', queuePartnerViewport, {passive: true});
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') queuePartnerViewport();
+});
+fitPartnerViewport();
+
 function runningAsApp() {
   return standalone.matches || navigator.standalone === true;
 }
