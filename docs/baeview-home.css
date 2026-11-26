@@ -23,7 +23,7 @@
 .hero-message{max-width:425px;width:100%}
 .hero-alpha{margin-top:24px}
 .hero-alpha-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.alpha-cta{width:100%;min-width:0;min-height:66px;background:#007a5a;color:#fff;border:1px solid #006c4f;border-radius:12px;justify-content:center;gap:10px;padding:16px 12px;font-size:17px;font-weight:780;white-space:nowrap;box-shadow:0 8px 22px #087b6820}
+.alpha-cta{width:100%;min-width:0;min-height:66px;background:#007a5a;color:#fff;border:1px solid #006c4f;border-radius:12px;justify-content:center;gap:8px;padding:16px 8px;font-size:clamp(14px,1.3vw,17px);font-weight:780;white-space:nowrap;box-shadow:0 8px 22px #087b6820}
 .alpha-cta:hover{background:#006448;border-color:#005c42;box-shadow:0 10px 24px #087b682e}
 .alpha-cta .icon{width:18px;height:18px;stroke-width:2}
 .alpha-apply{background:#d3f5e5;color:#075d43;border-color:#7fc4a3;box-shadow:none}
