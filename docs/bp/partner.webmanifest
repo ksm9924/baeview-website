@@ -12,7 +12,7 @@
     {"platform":"webapp","id":"https://baeview.kr/bp/","url":"https://baeview.kr/bp/partner.webmanifest"}
   ],
   "icons": [
-    {"src":"./baeview-partner-install-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
-    {"src":"./baeview-partner-install-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
+    {"src":"./baeview-partner-transparent-192-20261126.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./baeview-partner-transparent-512-20261126.png","sizes":"512x512","type":"image/png","purpose":"any"}
   ]
 }
