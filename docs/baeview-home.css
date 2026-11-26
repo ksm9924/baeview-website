@@ -22,12 +22,15 @@
 /* Primary alpha invitation remains visible in the first screen. */
 .hero-message{max-width:425px;width:100%}
 .hero-alpha{margin-top:24px}
-.alpha-cta{width:100%;min-height:66px;background:#007a5a;color:#fff;border:1px solid #006c4f;border-radius:12px;justify-content:space-between;padding:17px 25px;font-size:22px;font-weight:780;box-shadow:0 8px 22px #087b6820}
+.hero-alpha-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.alpha-cta{width:100%;min-width:0;min-height:66px;background:#007a5a;color:#fff;border:1px solid #006c4f;border-radius:12px;justify-content:center;gap:10px;padding:16px 12px;font-size:17px;font-weight:780;white-space:nowrap;box-shadow:0 8px 22px #087b6820}
 .alpha-cta:hover{background:#006448;border-color:#005c42;box-shadow:0 10px 24px #087b682e}
-.alpha-cta .icon{width:26px;height:26px;stroke-width:2}
+.alpha-cta .icon{width:18px;height:18px;stroke-width:2}
+.alpha-apply{background:#d3f5e5;color:#075d43;border-color:#7fc4a3;box-shadow:none}
+.alpha-apply:hover{background:#b9edd3;color:#064c37;border-color:#56a582;box-shadow:0 8px 18px #087b6814}
 .hero-alpha>p{font-size:11px;line-height:1.8;color:#52695c;margin-top:10px}
 .service-alpha{background:#007a5a;border:1px solid #006c4f;color:#fff;min-height:45px;padding:10px 16px;border-radius:8px;font-size:14px;font-weight:750;white-space:nowrap}
 .service-alpha:hover{background:#006448;color:#fff}
-@media(max-width:800px){.hero-message{display:block;max-width:520px}.hero-message>p+p{margin-top:12px}.hero-alpha{max-width:425px;margin-top:21px}.alpha-cta{min-height:62px;font-size:21px}.service-alpha{font-size:12px;padding:10px 12px;min-height:42px}}
-@media(max-width:540px){.hero-alpha{margin-top:21px}.alpha-cta{min-height:62px;font-size:21px;padding:16px 22px}.hero-alpha>p{font-size:10px;margin-top:9px}.service-alpha{font-size:13px;min-height:43px;padding:10px 13px}}
-@media(max-width:360px){.service-actions{gap:8px}.service-detail{font-size:12px;gap:6px}.service-alpha{font-size:12px;padding:10px 11px}.alpha-cta{font-size:20px}}
+@media(max-width:800px){.hero-message{display:block;max-width:520px}.hero-message>p+p{margin-top:12px}.hero-alpha{max-width:425px;margin-top:21px}.alpha-cta{min-height:62px;font-size:17px}.service-alpha{font-size:12px;padding:10px 12px;min-height:42px}}
+@media(max-width:540px){.hero-alpha{margin-top:21px}.hero-alpha-actions{gap:8px}.alpha-cta{min-height:60px;font-size:15px;padding:14px 8px;gap:6px}.alpha-cta .icon{width:16px;height:16px}.hero-alpha>p{font-size:10px;margin-top:9px}.service-alpha{font-size:13px;min-height:43px;padding:10px 13px}}
+@media(max-width:360px){.service-actions{gap:8px}.service-detail{font-size:12px;gap:6px}.service-alpha{font-size:12px;padding:10px 11px}.alpha-cta{font-size:14px}.alpha-cta .icon{display:none}}
