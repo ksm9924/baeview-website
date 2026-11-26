@@ -107,6 +107,7 @@ const history = window.history;
 const modalStack = [];
 let closingModal = null;
 let restoreTimer;
+let restoreWhenVisible = false;
 
 function ensureModalHistory() {
   const id = modalStack.at(-1);
@@ -125,7 +126,14 @@ window.addEventListener('message', event => {
     if (position !== -1) return;
     modalStack.push(id);
     window.clearTimeout(restoreTimer);
+    restoreWhenVisible = false;
     backMessage.hidden = true;
+    // A newly opened sheet cancels the pending exit. Restore the home guard
+    // before its modal entry replaces the forward history.
+    if (runningAsApp() && history.state?.[stage] === 'root' &&
+        !history.state?.baeviewModal) {
+      history.pushState({...history.state, [stage]:'active'}, '');
+    }
     ensureModalHistory();
     return;
   }
@@ -148,7 +156,17 @@ if (runningAsApp()) {
   }
 }
 
+document.addEventListener('visibilitychange', () => {
+  // Only resume a guard restoration deferred by our own exit timer.
+  if (!restoreWhenVisible || document.visibilityState !== 'visible' ||
+      !runningAsApp() || history.state?.[stage] !== 'root' ||
+      modalStack.length || !backMessage.hidden) return;
+  restoreWhenVisible = false;
+  history.forward();
+});
+
 window.addEventListener('popstate', event => {
+  restoreWhenVisible = false;
   if (closingModal) {
     closingModal = null;
     ensureModalHistory();
@@ -173,8 +191,9 @@ window.addEventListener('popstate', event => {
   if (backMessage.hidden) return;
   restoreTimer = window.setTimeout(() => {
     backMessage.hidden = true;
-    if (history.state?.[stage] === 'root' && document.visibilityState === 'visible') {
-      history.forward();
+    if (history.state?.[stage] === 'root') {
+      if (document.visibilityState === 'visible') history.forward();
+      else restoreWhenVisible = true;
     }
   }, 2400);
 });
@@ -182,3 +201,4 @@ window.addEventListener('popstate', event => {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js', {scope:'./'}).catch(() => {});
 }
+
