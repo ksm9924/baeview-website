@@ -13,6 +13,8 @@
   ],
   "icons": [
     {"src":"./baeview-partner-transparent-192-20261126.png","sizes":"192x192","type":"image/png","purpose":"any"},
-    {"src":"./baeview-partner-transparent-512-20261126.png","sizes":"512x512","type":"image/png","purpose":"any"}
+    {"src":"./baeview-partner-transparent-512-20261126.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"./baeview-partner-maskable-gray-192-20261127.png","sizes":"192x192","type":"image/png","purpose":"maskable"},
+    {"src":"./baeview-partner-maskable-gray-512-20261127.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
   ]
 }
