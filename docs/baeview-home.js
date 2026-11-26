@@ -36,7 +36,7 @@
   const tabs = Array.from(document.querySelectorAll('[data-guide-tab]'));
   const panels = Array.from(document.querySelectorAll('[data-guide-panel]'));
   if (!tabList || tabs.length !== 2 || panels.length !== 2) return;
-  const selectGuide = (name, focus = false) => {
+  const selectGuide = (name, focus = false, syncHash = false) => {
     const selected = tabs.find(tab => tab.dataset.guideTab === name);
     if (!selected) return;
     tabs.forEach(tab => {
@@ -45,10 +45,15 @@
       tab.tabIndex = active ? 0 : -1;
     });
     panels.forEach(panel => { panel.hidden = panel.dataset.guidePanel !== name; });
+    if (syncHash) {
+      const hash = `#${selected.getAttribute('aria-controls')}`;
+      // A tab updates the current entry; ordinary guide links keep native history.
+      if (location.hash !== hash) window.history.replaceState(window.history.state, '', hash);
+    }
     if (focus) selected.focus();
   };
   tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => selectGuide(tab.dataset.guideTab));
+    tab.addEventListener('click', () => selectGuide(tab.dataset.guideTab, false, true));
     tab.addEventListener('keydown', event => {
       let next = index;
       if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
@@ -57,7 +62,7 @@
       else if (event.key === 'End') next = tabs.length - 1;
       else return;
       event.preventDefault();
-      selectGuide(tabs[next].dataset.guideTab, true);
+      selectGuide(tabs[next].dataset.guideTab, true, true);
     });
   });
   const selectFromHash = () => {
@@ -68,6 +73,8 @@
     link.addEventListener('click', () => selectGuide(link.dataset.guideLink));
   });
   window.addEventListener('hashchange', selectFromHash);
+  window.addEventListener('popstate', selectFromHash);
+  window.addEventListener('pageshow', selectFromHash);
   selectGuide('rider');
   selectFromHash();
   tabList.hidden = false;
